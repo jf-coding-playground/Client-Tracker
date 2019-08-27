@@ -1,0 +1,1 @@
+mongoimport --db clientTracker --collection celldata --type csv --file data/example_data.csv --headerline
