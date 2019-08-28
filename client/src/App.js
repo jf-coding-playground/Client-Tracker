@@ -6,7 +6,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={Dashboard} />
+        <Route exact path="/" component={Dashboard} />
+        <Route exact path="/:client" component={Dashboard} />
       </Switch>
     </BrowserRouter>
   );

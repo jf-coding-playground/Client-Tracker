@@ -6,21 +6,36 @@ export default class DashboardContainer extends Component {
     super(props);
 
     this.state = {
-      timesheets: []
+      timesheets: [],
+      clients: []
     }
     this.urlParams = this.props.match.params;
   }
 
   componentDidMount() {
     const client = this.urlParams.client;
+    console.log("TCL: DashboardContainer -> componentDidMount -> client", client)
 
     client ? this.fetchTimeSheets(client) : this.fetchTimeSheets();
   }
 
   fetchTimeSheets = (client = '') => {
-    fetch(`/api/v1/timesheets${client ? '/' + client : ''}`)
-    .then(data => data.json())
-    .then(timesheets => this.setState({ timesheets }))
+    const url = `/api/v1/timesheets${client ? '/' + client : ''}`;
+    
+    fetch(url)
+      .then(data => data.json())
+      .then(timesheets => {
+        this.setState({ timesheets });
+        return timesheets;
+      })
+      .then(timesheets => this.getClientNames(timesheets))
+      .catch(err => console.log(err))
+  }
+
+  getClientNames = (timesheets) => {
+    const clients = new Set(timesheets.map(timesheet => timesheet.Client));
+
+    this.setState({clients: [...clients]});
   }
 
   handleTimesheetSubmit = (timesheet) => {
@@ -28,10 +43,11 @@ export default class DashboardContainer extends Component {
   }
 
   render() {
-    const { timesheets } = this.state;
+    const { timesheets, clients } = this.state;
 
     return (
-      <Dashboard 
+      <Dashboard
+        clients={clients} 
         timesheets={timesheets}
         onTimesheetSubmit={this.handleTimesheetSubmit}
       />

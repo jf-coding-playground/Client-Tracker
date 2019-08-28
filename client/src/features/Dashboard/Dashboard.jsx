@@ -1,11 +1,23 @@
 import React from 'react';
-import { Layout, Table, Stats } from '../../components';
+import './Dashboard.css';
+import { Layout, Table, Stats, Loader } from '../../components';
 
-export default function Dashboard() {
+export default function Dashboard({ timesheets, clients, onTimeSheetSubmit }) {
+  const renderLoading = () => <Loader />;
+
+  const renderDashboard = () => (
+    <div className="dashboard">
+      <Stats />
+      <Table
+        data={timesheets}
+      />
+    </div>
+  );
+
   return (
     <Layout>
-      <Stats />
-      <Table />
+      {timesheets.length < 1 ? renderLoading() : renderDashboard()}
     </Layout>
-  )
+  );
 }
+
