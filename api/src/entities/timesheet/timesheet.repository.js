@@ -1,23 +1,17 @@
 const mongoose = require('mongoose');
 const timesheetModel = mongoose.model('Timesheet');
 
-async function save(timesheet) {
+exports.save = async function(timesheet) {
   const newTimesheet = new timesheetModel(timesheet);
   await newTimesheet.save();
 
   return newTimesheet;
-}
+};
 
-async function findByClient(client) {
-  return await timesheetModel.find({ client });
-}
+exports.findByClient = async function(client) {
+  return await timesheetModel.find({ 'Client': client });
+};
 
-async function find() {
+exports.find = async function() {
   return await timesheetModel.find({}).exec();
-}
-
-module.exports = {
-  save, 
-  findByClient,
-  find
 };

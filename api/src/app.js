@@ -3,5 +3,15 @@ require('dotenv').config();
 const db = require('./config/mongo');
 const server = require('./config/express');
 
-db.connect();
-server.start();
+(async function() {
+  await db.connect();
+
+  const isPopulated = await db.isPopulated();
+
+  if (!isPopulated) {
+    await db.populate();
+  }
+
+  server.start();
+})();
+

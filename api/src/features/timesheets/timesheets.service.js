@@ -1,20 +1,24 @@
-const timesheetRepository = require('../../entities/timesheet/timesheet.repository');
+const { timesheetRepository } = require('../../entities/timesheet');
 
-module.exports = async function(client = '') {
-  try {
+exports.getTimesheets = async function (client = '') {
     let timesheets;
 
     if (!client) {
       timesheets = await timesheetRepository.find();
-    } 
+    }
     else {
       timesheets = await timesheetRepository.findByClient(client);
     }
 
     return timesheets;
-  } 
-  catch (error) {
-    console.log(`Error: ${error.message}`);
-  }
 };
 
+exports.createTimesheet = async function (timesheet) {
+    const timesheetSaved = await timesheetRepository.save(timesheet);
+
+    if (!timesheetSaved) {
+      throw new Error('Timesheet was not saved!');
+    }
+
+    return timesheetSaved;
+};
