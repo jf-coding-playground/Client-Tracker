@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const Mongoose = require('mongoose');
+require('../entities/timesheet/timesheet.model');
 const {
   MONGO_USERNAME,
   MONGO_PASSWORD,

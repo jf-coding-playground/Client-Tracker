@@ -8,7 +8,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // ROUTES
-app.use('/', (req, res) => res.send('Hello world!'));
+app.get('/', (req, res) => res.send('Hello world!'));
+require('../features/timesheets/timesheets.route')(app);
 
 module.exports = {
   start: () => app.listen(port, () => console.log(`Listening on port: ${port}`))
