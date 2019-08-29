@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
-import { Table, Stats } from '../../components';
+import { Table, Stats, Modal, Form } from '../../components';
 
 export default function Dashboard({
   timesheets,
@@ -10,6 +10,11 @@ export default function Dashboard({
   data,
   onClientSelection
 }) {
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+
+
   const options = clients.map((client, i) => <option key={i} value={client}>{client}</option>);
   const tableColumns = ["Name", "Client", "Hours", "Billable Hours", "Billable Amount"];
   const rowOrder = ['Project', 'Client', 'Hours', 'Hours', 'Billable_Amount'];
@@ -30,7 +35,10 @@ export default function Dashboard({
               {options}
             </select>
           </div>
-          <Button className="add-timesheet" variant="success">Add Timesheet</Button>
+          <Button onClick={handleShowModal} className="add-timesheet" variant="success">Add Timesheet</Button>
+          <Modal show={showModal} onClose={handleCloseModal}>
+            <Form />
+          </Modal>
         </div>
       }
       {clients.length < 2 &&
