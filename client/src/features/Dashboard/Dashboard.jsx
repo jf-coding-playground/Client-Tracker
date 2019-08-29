@@ -8,7 +8,8 @@ export default function Dashboard({
   timesheets,
   clients,
   data,
-  onClientSelection
+  onClientSelection,
+  onSubmitTimesheet
 }) {
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
@@ -16,13 +17,45 @@ export default function Dashboard({
 
 
   const options = clients.map((client, i) => <option key={i} value={client}>{client}</option>);
-  const tableColumns = ["Name", "Client", "Hours", "Billable Hours", "Billable Amount"];
-  const rowOrder = ['Project', 'Client', 'Hours', 'Hours', 'Billable_Amount'];
+  const tableColumns = [
+    "Name", 
+    "Client", 
+    "Hours", 
+    "Billable Hours", 
+    "Billable Amount"
+  ];
+  const rowOrder = [
+    'Project', 
+    'Client', 
+    'Hours', 
+    'Hours', 
+    'Billable_Amount'
+  ];
   const tableRows = timesheets.map(timesheet => {
     const { Client, Project, Hours, Billable_Amount } = timesheet;
 
     return { Project, Client, Hours, Billable_Amount }
   });
+
+  const formFields = [
+    'Client', 
+    'Project', 
+    'Project Code', 
+    'Task', 
+    'Hours', 
+    'First Name', 
+    'Last Name', 
+    'Department',
+    'Billable Rate',
+    'Cost Rate'
+  ];
+
+  const formCheckBoxes = [
+    'Billable?',
+    'Invoiced?',
+    'Approved?',
+    'Employee?'
+  ]
 
   return (
     <div className="dashboard container">
@@ -36,8 +69,15 @@ export default function Dashboard({
             </select>
           </div>
           <Button onClick={handleShowModal} className="add-timesheet" variant="success">Add Timesheet</Button>
-          <Modal show={showModal} onClose={handleCloseModal}>
-            <Form />
+          <Modal 
+            show={showModal} 
+            onClose={handleCloseModal}
+            title={'Add Timesheet'}>
+            <Form
+              fields={formFields}
+              checkBoxes={formCheckBoxes}
+              onSubmit={onSubmitTimesheet}
+            />
           </Modal>
         </div>
       }

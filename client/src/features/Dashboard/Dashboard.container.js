@@ -84,6 +84,17 @@ export default class DashboardContainer extends Component {
     this.fetchTimeSheets(client);
   }
 
+  handleSubmitTimesheet = (event) => {
+    event.preventDefault();
+    // const options = {
+    //   method: 'POST',
+    //   body: JSON.stringify(newTimesheet)
+    // }
+
+    // fetch('/api/v1/timesheet', options)
+    // .then(res => console.log(res));
+  }
+
   render() {
     const { timesheets, clients, data  } = this.state;
 
@@ -95,6 +106,7 @@ export default class DashboardContainer extends Component {
             clients={clients}
             data={data}
             onClientSelection={this.handleClientSelection}
+            onSubmitTimesheet={this.handleSubmitTimesheet}
           />
         }
       </Layout>

@@ -59,3 +59,10 @@
   font-weight: 900;
   color: lightgray;
 }
+
+
+@media only screen and (max-width: 500px) {
+  .dashboard-options {
+    display: block;
+  }
+}
