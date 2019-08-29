@@ -8,15 +8,15 @@ export default function Stats({ data }) {
     <div className="container stats">
       <div className="row">
         <div className="col">
-          <div>Hours Tracked</div>
+          <div className="stats-title">Hours Tracked</div>
           <div>{totalHoursTracked}</div>
         </div>
-        <div className="col">
+        <div className="col stats-graph">
           <div>{totalBillableHours}</div>
-          <div>Billable Hours</div>
+          <div className="stats-title">Billable Hours</div>
         </div>
         <div className="col">
-          <div>Billable Amount</div>
+          <div className="stats-title">Billable Amount</div>
           <div>${totalBillableAmount}</div>
         </div>
       </div>

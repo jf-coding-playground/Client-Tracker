@@ -7,15 +7,12 @@ import { Table, Stats } from '../../components';
 export default function Dashboard({
   timesheets,
   clients,
-  totalHoursTracked,
-  totalBillableHours,
-  totalBillableAmount,
+  data,
   onClientSelection
 }) {
   const options = clients.map((client, i) => <option key={i} value={client}>{client}</option>);
   const tableColumns = ["Name", "Client", "Hours", "Billable Hours", "Billable Amount"];
   const rowOrder = ['Project', 'Client', 'Hours', 'Hours', 'Billable_Amount'];
-  const statsData = { totalHoursTracked, totalBillableHours, totalBillableAmount, }
   const tableRows = timesheets.map(timesheet => {
     const { Client, Project, Hours, Billable_Amount } = timesheet;
 
@@ -29,7 +26,7 @@ export default function Dashboard({
           <div className="form-group dashboard-options-select">
             <label className="control-label" htmlFor="website">Clients</label>
             <select onChange={onClientSelection} id="clients" className="form-control">
-              <option value="All">All</option>
+              <option value="/">All</option>
               {options}
             </select>
           </div>
@@ -37,11 +34,11 @@ export default function Dashboard({
         </div>
       }
       {clients.length < 2 &&
-        <Link className="mr-auto" to="/All">
+        <Link className="mr-auto" to="/">
           <Button className="add-timesheet" variant="success">Go Back</Button>
         </Link>
       }
-      <Stats data={statsData} />
+      <Stats data={data} />
       <span className="dashboard-timesheets-num ml-auto">{timesheets.length} timesheets</span>
       <Table
         columns={tableColumns}

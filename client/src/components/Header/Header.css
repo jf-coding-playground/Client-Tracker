@@ -8,5 +8,16 @@
 .header-text {
   display: flex;
   align-items: center;
+}
+
+.header-link {
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+}
+
+.header-link:hover {
+  text-decoration: none;
+  outline: none;
   color: #fff;
 }

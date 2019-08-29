@@ -9,28 +9,29 @@ export default class DashboardContainer extends Component {
     this.state = {
       timesheets: [],
       clients: [],
-      totalHoursTracked: 0,
-      totalBillableAmount: 0,
-      totalBillableHours: 0,
-      dataReceived: false
+      data: {
+        totalHoursTracked: 0,
+        totalBillableAmount: 0,
+        totalBillableHours: 0,
+      }
     }
-    this.urlParams = this.props.match.params;
+    this.urlParams = this.props.match.params.client;
   }
 
   componentDidMount() {
-    const client = this.urlParams.client;
+    const client = this.urlParams;
 
     client ? this.fetchTimeSheets(client) : this.fetchTimeSheets();
   }
 
-  UNSAFE_componentWillReceiveProp(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const newURL = nextProps.match.params.client;
 
     this.fetchTimeSheets(newURL);
   }
 
-  fetchTimeSheets = (client = 'All') => {
-    const url = `/api/v1/timesheets${client !== 'All' ? '/' + client : ''}`;
+  fetchTimeSheets = (client = '') => {
+    const url = `/api/v1/timesheets${client ? '/' + client : ''}`;
 
     fetch(url)
       .then(data => data.json())
@@ -68,10 +69,11 @@ export default class DashboardContainer extends Component {
     this.setState({
       timesheets: newTimesheets,
       clients: [...clients],
-      totalHoursTracked,
-      totalBillableHours,
-      totalBillableAmount,
-      dataReceived: true
+      data: {
+        totalHoursTracked,
+        totalBillableHours,
+        totalBillableAmount
+      }
     })
   }
 
@@ -83,13 +85,15 @@ export default class DashboardContainer extends Component {
   }
 
   render() {
-    const { timesheets } = this.state;
+    const { timesheets, clients, data  } = this.state;
 
     return (
       <Layout>
         {timesheets.length < 1 ? <Loader /> :
           <Dashboard
-            {...this.state}
+            timesheets={timesheets}
+            clients={clients}
+            data={data}
             onClientSelection={this.handleClientSelection}
           />
         }
