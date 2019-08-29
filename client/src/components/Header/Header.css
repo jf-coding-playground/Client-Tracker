@@ -1,12 +1,12 @@
-.navbar {
+.header {
   background-color: #292929;
-  color: #fff;
-  height: 5vh;
+  height: 50px;
   padding: 20px;
   display: flex;
 }
 
-.navbar-text {
+.header-text {
   display: flex;
   align-items: center;
+  color: #fff;
 }

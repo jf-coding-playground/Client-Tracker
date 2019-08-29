@@ -4,11 +4,11 @@ import { Header } from '../';
 
 export default function Layout({ children }) {
   return (
-    <div className="layout">
-      <Header />
-      <div className="layout-content container">
+    <section className="layout">
+      <Header title="Client Tracker" />
+      <main className="layout-content container">
         {children}
-      </div>
-    </div>
+      </main>
+    </section>
   )
 }
