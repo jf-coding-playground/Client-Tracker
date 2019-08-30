@@ -2,7 +2,7 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 import './Table.css';
 
-export default function TableComponent({ columns, rows, rowOrder }) {
+export default function TableComponent({ columns, rows }) {
   const renderColumns = (
     <thead>
       <tr>
@@ -13,12 +13,12 @@ export default function TableComponent({ columns, rows, rowOrder }) {
 
   const renderRows = rows.map((row, i) => (
     <tr key={i}>
-      {rowOrder.map((item, j) => <td key={j}>{row[item]}</td>)}
+      {row.map((rowItem, j) => <td key={j}>{rowItem}</td>)}
     </tr>
   ));
 
   return (
-    <div className="table-container">
+    <div className="table-container shadow">
     <Table responsive striped borderless hover>
       {columns && renderColumns}
       <tbody>
@@ -26,6 +26,5 @@ export default function TableComponent({ columns, rows, rowOrder }) {
       </tbody>
     </Table>
     </div>
-
   )
 }

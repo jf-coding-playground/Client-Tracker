@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
 import { Table, Stats, Modal, Form } from '../../components';
+import { formFields, formCheckBoxes, tableColumns } from './Dashboard.helpers';
 
 export default function Dashboard({
   timesheets,
@@ -15,47 +16,11 @@ export default function Dashboard({
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
-
   const options = clients.map((client, i) => <option key={i} value={client}>{client}</option>);
-  const tableColumns = [
-    "Name", 
-    "Client", 
-    "Hours", 
-    "Billable Hours", 
-    "Billable Amount"
-  ];
-  const rowOrder = [
-    'Project', 
-    'Client', 
-    'Hours', 
-    'Hours', 
-    'Billable_Amount'
-  ];
-  const tableRows = timesheets.map(timesheet => {
-    const { Client, Project, Hours, Billable_Amount } = timesheet;
 
-    return { Project, Client, Hours, Billable_Amount }
-  });
-
-  const formFields = [
-    'Client', 
-    'Project', 
-    'Project Code', 
-    'Task', 
-    'Hours', 
-    'First Name', 
-    'Last Name', 
-    'Department',
-    'Billable Rate',
-    'Cost Rate'
-  ];
-
-  const formCheckBoxes = [
-    'Billable?',
-    'Invoiced?',
-    'Approved?',
-    'Employee?'
-  ]
+  const tableRows = timesheets.map(({ client, project, hours, billableAmount }) => (
+    [project, client, hours, hours, billableAmount]
+  ));
 
   return (
     <div className="dashboard container">
@@ -68,9 +33,9 @@ export default function Dashboard({
               {options}
             </select>
           </div>
-          <Button onClick={handleShowModal} className="add-timesheet" variant="success">Add Timesheet</Button>
-          <Modal 
-            show={showModal} 
+          <Button onClick={handleShowModal} className="" variant="success">Add Timesheet</Button>
+          <Modal
+            show={showModal}
             onClose={handleCloseModal}
             title={'Add Timesheet'}>
             <Form
@@ -91,7 +56,6 @@ export default function Dashboard({
       <Table
         columns={tableColumns}
         rows={tableRows}
-        rowOrder={rowOrder}
       />
     </div>
   );

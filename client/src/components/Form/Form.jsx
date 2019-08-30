@@ -1,24 +1,35 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import './Form.css'
+import './Form.css';
+
 export default function FormComponent({ fields, checkBoxes, onSubmit }) {
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       {fields && fields.map((field, i) => (
-        <Form.Group key={i} controlId={field}>
-          <Form.Label>{field}</Form.Label>
-          <Form.Control type="text" />
+        <Form.Group key={i} controlId={field.name}>
+          <Form.Label>{field.name}</Form.Label>
+          {field.required ?
+            <Form.Control required name={field.name} type={field.type} />
+            :
+            <Form.Control name={field.name} type={field.type} />
+          }
         </Form.Group>
       ))}
+
+      <br />
+      <hr />
+      <br />
 
       {checkBoxes && checkBoxes.map((checkBox, i) => (
         <Form.Group key={i} controlId={checkBox}>
-          <Form.Check type="checkbox" label={checkBox} />
+          <Form.Check name={checkBox} type="checkbox" label={checkBox} />
         </Form.Group>
       ))}
 
-      <Button onSubmit={onSubmit} className="form-btn" variant="primary" type="submit">
+      <br />
+
+      <Button className="form-btn" variant="primary" type="submit">
         Submit
       </Button>
     </Form>

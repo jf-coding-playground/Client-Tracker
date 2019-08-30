@@ -5,7 +5,7 @@ export default function Stats({ data }) {
   const { totalHoursTracked, totalBillableHours,
     totalBillableAmount } = data;
   return (
-    <div className="container stats">
+    <div className="container stats shadow">
       <div className="row">
         <div className="col">
           <div className="stats-title">Hours Tracked</div>
