@@ -7,13 +7,13 @@ export const mapTimesheetData = function(timesheet) {
     task: timesheet["Task"],
     hours: timesheet["Hours"],
     hoursRounded: timesheet["Hours Rounded"],
-    billable: timesheet["Billable?"],
-    invoiced: timesheet["Invoiced?"],
-    approved: timesheet["Approved?"],
+    billable: timesheet["Billable?"] === "Yes" ? true : false,
+    invoiced: timesheet["Invoiced?"] === "Yes" ? true : false,
+    approved: timesheet["Approved?"] === "Yes" ? true : false, 
     firstName: timesheet["First Name"],
     lastName: timesheet["Last Name"],
     department: timesheet["Department"],
-    employee: timesheet["Employee?"],
+    employee: timesheet["Employee?"] === "Yes" ? true : false,
     billableRate: timesheet["Billable Rate"],
     costRate: timesheet["Cost Rate"],
     costAmount: timesheet["Cost Amount"],
@@ -26,8 +26,9 @@ export const tableColumns = [
   "Name",
   "Client",
   "Hours",
+  "Percentage",
   "Billable Hours",
-  "Billable Amount"
+  "Billable Amount ($)"
 ];
 
 export const formFields = [

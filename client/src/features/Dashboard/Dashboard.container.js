@@ -14,6 +14,7 @@ export default class DashboardContainer extends Component {
         totalHoursTracked: 0,
         totalBillableAmount: 0,
         totalBillableHours: 0,
+        maxBillableHour: 0
       }
     }
     this.urlParams = this.props.match.params.client;
@@ -43,27 +44,40 @@ export default class DashboardContainer extends Component {
 
   getDataFromTimesheets = (timesheets) => {
     let clients = [];
-    let totalHoursTracked = 0
-    let totalBillableHours = 0
-    let totalBillableAmount = 0
+    let totalHoursTracked = 0;
+    let totalBillableHours = 0;
+    let totalBillableAmount = 0;
+    let maxBillableHours = 0;
+    let billableHours = 0;
+    let billablePercentage = 0;
 
     const newTimesheets = timesheets.map(timesheet => {
-      const hours = parseInt(timesheet.hours);
-      const billable = timesheet.billable === "Yes" ? true : false;
-      const billableRate = timesheet.billableRate
-      let billableAmount = billableRate * hours
+      const { client, hours, billable, billableRate } = timesheet;
+      let billableAmount = (billableRate * hours);
+      billableHours = hours;
 
-      clients.push(timesheet.client);
+      clients.push(client);
       totalHoursTracked += hours;
 
       if (billable) {
-        totalBillableHours += hours
-        totalBillableAmount += billableAmount
-      } else {
-        billableAmount = '-'
+        totalBillableHours += hours;
+        totalBillableAmount += billableAmount;
+        billableAmount = billableAmount.toFixed(2)
+        billablePercentage = Math.floor((billableHours / hours) * 100);
+
+        if (hours > maxBillableHours) maxBillableHours = hours;
+      } 
+      else {
+        billableAmount = '-';
+        billablePercentage = 0;
       }
 
-      return { ...timesheet, billableAmount };
+      return { 
+        ...timesheet, 
+        billableAmount, 
+        billableHours,
+        billablePercentage 
+      };
     });
 
     clients = new Set(clients);
@@ -72,11 +86,12 @@ export default class DashboardContainer extends Component {
       timesheets: newTimesheets,
       clients: [...clients],
       data: {
-        totalHoursTracked,
-        totalBillableHours,
-        totalBillableAmount
+        totalHoursTracked: totalHoursTracked.toFixed(2),
+        totalBillableHours: totalBillableHours.toFixed(2),
+        totalBillableAmount: totalBillableAmount.toFixed(2),
+        maxBillableHours
       }
-    })
+    });
   }
 
   handleClientSelection = ({ target }) => {
@@ -135,25 +150,3 @@ export default class DashboardContainer extends Component {
     )
   }
 }
-
-// "_id": "5d66a8aa9b24883cbe263ac2",
-// "Date": "2017-04-03T04:00:00.000Z",
-// "Client": "Twitri",
-// "Project": "CLOB Rearchitecture",
-// "Project Code": "BGC001",
-// "Task": "Project Management",
-// "Hours": 6.26,
-// "Hours Rounded": 6,
-// "Billable?": "Yes",
-// "Invoiced?": "Yes",
-// "Approved?": "Yes",
-// "First Name": "Walter",
-// "Last Name": "Silva",
-// "Department": "Product",
-// "Employee?": "Yes",
-// "Billable Rate": 50,
-// "Cost Rate": 0,
-// "Cost Amount": 0,
-// "Currency": "United States Dollar - USD",
-// "External Reference URL": null,
-// "__v": 0

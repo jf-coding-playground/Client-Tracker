@@ -15,3 +15,12 @@ code {
 
 .shadow {   box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.16); }
 
+.bg-billable {
+  background-color:  rgb(57, 171, 24)
+}
+
+.bg-non-billable {
+  background-color: rgb(172, 225, 155);
+}
+
+.bold { font-weight: 900; }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
 import { Table, Stats, Modal, Form } from '../../components';
@@ -15,12 +16,24 @@ export default function Dashboard({
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
+  const { maxBillableHours } = data;
 
   const options = clients.map((client, i) => <option key={i} value={client}>{client}</option>);
+  const percentageBar = (percentage, bool) => <ProgressBar variant={`${bool ? 'billable' : 'non-billable'}`} now={percentage} />
 
-  const tableRows = timesheets.map(({ client, project, hours, billableAmount }) => (
-    [project, client, hours, hours, billableAmount]
-  ));
+  const tableRows = timesheets.map(({ client, project, hours, billableAmount, billableHours, billable , billablePercentage }) => {
+    const percentage = (billableHours / (maxBillableHours + 5)) * 100;
+    const billableHoursWithPercentage  = `${billableHours}  (${billablePercentage})%`
+
+    return [
+      project,
+      client,
+      hours,
+      percentageBar(percentage, billable),
+      billableHoursWithPercentage,
+      billableAmount
+    ]
+  });
 
   return (
     <div className="dashboard container">
@@ -52,7 +65,7 @@ export default function Dashboard({
         </Link>
       }
       <Stats data={data} />
-      <span className="dashboard-timesheets-num ml-auto">{timesheets.length} timesheets</span>
+      <span className="dashboard-timesheets-num ml-auto bold">{timesheets.length} timesheets</span>
       <Table
         columns={tableColumns}
         rows={tableRows}
