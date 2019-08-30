@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import Chart from 'react-apexcharts';
 
 export default class RadialChart extends Component {
 
@@ -13,25 +13,30 @@ export default class RadialChart extends Component {
           radialBar: {
             hollow: {
               size: `50%`
-            }, track: {
+            },
+            track: {
               background: ['#ade19b']
+            },
+            dataLabels: {
+              show: false,
             }
           },
         },
         labels: [`${props.percentage}%`]
+
       },
-      series: [props.percentage],
+      series: [props.percentage]
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { percentage } = nextProps;
 
     if (percentage !== this.props.percentage) {
       const { options } = this.state;
 
       options.plotOptions.radialBar.hollow.size = percentage;
-      options.labels = [`${percentage}%`];
+      options.labels[0] = `${percentage}%`;
 
       this.setState({
         options,
@@ -43,7 +48,7 @@ export default class RadialChart extends Component {
   render() {
     return (
       <div id="chart">
-        <ReactApexChart
+        <Chart
           options={this.state.options}
           series={this.state.series}
           type="radialBar"

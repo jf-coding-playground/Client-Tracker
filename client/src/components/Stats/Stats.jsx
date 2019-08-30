@@ -11,33 +11,34 @@ export default function Stats({ data }) {
   return (
     <div className="stats shadow container">
       <div className="row">
-        <div className="col center">
+        <div className="stats-col col-12 col-md-3 center">
           <div>
             <div className="stats-title">Hours Tracked</div>
             <div className="bold">{totalHoursTracked}</div>
           </div>
         </div>
-        <div className="col center">
+        <div className="stats-graph stats-col col-12 col-md-3 center">
+          <div className="stats-graph-percentage">{billableHoursPercentage}%</div>
           <RadialChart
             percentage={billableHoursPercentage}
           />
         </div>
-        <div className="col stats-graph center">
+        <div className="stats-col col-12 col-md-3 stats-graph-legend center">
           <div>
             <div className="stats-title mb-1">Billable Hours</div>
-            <div className="stats-graph-key">
-              <div className="stats-graph-key-item">
-                <div className="bg-billable stats-graph-key-item-box"></div>
-                <div><span className="bold">{totalBillableHours}</span> Billable</div>
+            <div className="stats-graph-legend-key">
+              <div className="stats-graph-legend-key-item">
+                <div className="bg-billable stats-graph-legend-key-item-box"></div>
+                <div><span className="bold">${numberWithCommas(totalBillableHours)}</span>&nbsp;&nbsp;Billable</div>
               </div>
-              <div className="stats-graph-key-item">
-                <div className="bg-non-billable stats-graph-key-item-box"></div>
-                <div><span className="bold">{totalNonBillableHours}</span> Non-Billable</div>
+              <div className="stats-graph-legend-key-item">
+                <div className="bg-non-billable stats-graph-legend-key-item-box"></div>
+                <div><span className="bold">${numberWithCommas(totalNonBillableHours)}</span>&nbsp;&nbsp;Non-Billable</div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col center">
+        <div className="stats-col col-12 col-md-3 center">
           <div>
             <div className="stats-title">Billable Amount</div>
             <div className="bold">${numberWithCommas(totalBillableAmount)}</div>

@@ -22,8 +22,9 @@ export default function Dashboard({
   const percentageBar = (percentage, bool) => <ProgressBar variant={`${bool ? 'billable' : 'non-billable'}`} now={percentage} />
 
   const tableRows = timesheets.map(({ client, project, hours, billableAmount, billableHours, billable , billablePercentage }) => {
-    const percentage = (billableHours / (maxBillableHours + 5)) * 100;
+    const percentage = (billableHours / (maxBillableHours)) * 100;
     const billableHoursWithPercentage  = `${billableHours}  (${billablePercentage})%`
+    const billed = billableAmount === '-' ? billableAmount : `$${billableAmount}`;
 
     return [
       project,
@@ -31,7 +32,7 @@ export default function Dashboard({
       hours,
       percentageBar(percentage, billable),
       billableHoursWithPercentage,
-      billableAmount
+      billed
     ]
   });
 

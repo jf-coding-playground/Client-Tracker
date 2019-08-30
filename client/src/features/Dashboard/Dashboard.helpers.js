@@ -28,7 +28,7 @@ export const tableColumns = [
   "Hours",
   "Percentage",
   "Billable Hours",
-  "Billable Amount ($)"
+  "Billable Amount"
 ];
 
 export const formFields = [

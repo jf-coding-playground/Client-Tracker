@@ -12,24 +12,46 @@
   width: 100%;
 }
 
+.stats-col {
+  margin: 20px 0;
+}
+
 .stats-title {
   color: #707070;
   font-size: 14px;
 }
 
+
 .stats-graph {
+  position: relative;
+}
+
+.stats-graph-percentage {
+  position: absolute;
+  left: 52%;
+    top: 45%;
+    transform: translate(-50%,-50%);
+}
+
+.stats-graph-legend {
   display: flex;
 }
 
-.stats-graph-key-item {
+.stats-graph-legend-key-item {
   display: flex;
   font-size: 12px;
   margin-bottom: 4px;
 }
 
-.stats-graph-key-item-box {
+.stats-graph-legend-key-item-box {
   width: 15px;
   height: 15px;
   border-radius: 2px; 
   margin-right: 5px;
+}
+
+@media only screen and (max-width: 700px) {
+  .stats {
+    flex-direction: column;
+  }
 }
