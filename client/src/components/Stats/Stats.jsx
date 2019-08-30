@@ -1,5 +1,7 @@
 import React from 'react';
 import './Stats.css';
+import { RadialChart } from '../';
+import { numberWithCommas } from '../../utils/helpers';
 
 export default function Stats({ data }) {
   const { totalHoursTracked, totalBillableHours, totalBillableAmount } = data;
@@ -7,14 +9,20 @@ export default function Stats({ data }) {
   const totalNonBillableHours = (totalHoursTracked - totalBillableHours).toFixed(2);
 
   return (
-    <div className="container stats shadow">
+    <div className="stats shadow container">
       <div className="row">
-        <div className="col">
-          <div className="stats-title">Hours Tracked</div>
-          <div className="bold">{totalHoursTracked}</div>
+        <div className="col center">
+          <div>
+            <div className="stats-title">Hours Tracked</div>
+            <div className="bold">{totalHoursTracked}</div>
+          </div>
         </div>
-        <div className="col stats-graph">
-          <div>{`${billableHoursPercentage}%`}</div>
+        <div className="col center">
+          <RadialChart
+            percentage={billableHoursPercentage}
+          />
+        </div>
+        <div className="col stats-graph center">
           <div>
             <div className="stats-title mb-1">Billable Hours</div>
             <div className="stats-graph-key">
@@ -29,9 +37,11 @@ export default function Stats({ data }) {
             </div>
           </div>
         </div>
-        <div className="col">
-          <div className="stats-title">Billable Amount</div>
-          <div className="bold">${totalBillableAmount}</div>
+        <div className="col center">
+          <div>
+            <div className="stats-title">Billable Amount</div>
+            <div className="bold">${numberWithCommas(totalBillableAmount)}</div>
+          </div>
         </div>
       </div>
     </div>
