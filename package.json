@@ -1,0 +1,20 @@
+{
+  "name": "Client-Tracker",
+  "version": "1.0.0",
+  "description": "####In order to run the application you must setup the database first:",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd ./api && npm install && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jonathanferreras/Client-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jonathanferreras/Client-Tracker/issues"
+  },
+  "homepage": "https://github.com/Jonathanferreras/Client-Tracker#readme"
+}
