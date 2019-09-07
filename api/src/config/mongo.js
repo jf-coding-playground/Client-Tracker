@@ -7,7 +7,9 @@ const {
   MONGO_PASSWORD,
   MONGO_HOSTNAME,
   MONGO_PORT,
-  MONGO_DB
+  MONGO_DB,
+  MONGO_PROD_USERNAME,
+  MONGO_PROD_PASSWORD
 } = process.env;
 
 const options = {
@@ -18,7 +20,13 @@ const options = {
   connectTimeoutMS: 10000,
 };
 
-const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+let url = process.env.NODE_ENV === 'production' ? 
+`mongodb+srv://${MONGO_PROD_USERNAME}:${MONGO_PROD_PASSWORD}@cluster0-udmbr.mongodb.net/test?retryWrites=true&w=majority` :
+`mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+
+// const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+
+// const productionURL = `mongodb+srv://${MONGOPROD_USERNAME_}:${MONGO_PROD_PASSWORD}@cluster0-udmbr.mongodb.net/test?retryWrites=true&w=majority`
 
 // MODELS
 const { timesheetModel } = require('../entities/timesheet');

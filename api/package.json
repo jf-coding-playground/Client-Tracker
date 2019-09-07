@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node ./src/app",
+    "start": "export NODE_ENV=production && node ./src/app",
     "dev": "nodemon ./src/app",
-    "db:populate": "node ./src/config/populate"
+    "heroku-postbuild": "cd ../client && yarn install && yarn build"
   },
   "author": "",
   "license": "ISC",

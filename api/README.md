@@ -14,7 +14,5 @@ run "npm start
 ####To start api in dev mode:
 run "npm run dev"
 
-####To populate database with mock data (make sure you have mongod running in a separate terminal):
-run "npm run db:populate"
 
 
