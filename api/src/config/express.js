@@ -15,6 +15,7 @@ require('../features/timesheets/timesheets.route')(app);
 if (process.env.NODE_ENV === 'production') {
   console.log('running in production!');
   app.use(express.static(path.join(__dirname, clientPath)));
+  console.log("TCL: __dirname", __dirname);
 
   app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, clientPath, 'index.html'));
