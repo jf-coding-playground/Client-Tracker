@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cd ./api && npm install && npm start",
-    "heroku-postbuild": "cd ./client && yarn install && yarn build"
+    "heroku-prebuild": "cd ./client && yarn install && yarn build"
   },
   "repository": {
     "type": "git",
