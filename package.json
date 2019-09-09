@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "####In order to run the application you must setup the database first:",
   "main": "index.js",
+  "engines": {
+    "yarn": "1.13.0"
+  },
   "scripts": {
     "start": "cd ./api && npm install && npm start",
     "heroku-prebuild": "cd ./client && yarn install && yarn build"
