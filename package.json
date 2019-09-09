@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Jonathanferreras/Client-Tracker/issues"
   },
-  "homepage": "https://github.com/Jonathanferreras/Client-Tracker#readme"
+  "homepage": "https://github.com/Jonathanferreras/Client-Tracker#readme",
+  "dependencies": {
+    "yarn": "^1.17.3"
+  }
 }
